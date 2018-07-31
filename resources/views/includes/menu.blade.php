@@ -28,13 +28,13 @@
             </a>
             <ul class="treeview-menu">
               <li>
-                <a href="">
+                <a href="{{route('permission.add')}}">
                   <i class="fa fa-angle-double-right"></i>
                   <span>Permission Add</span>
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="{{route('permission.list')}}">
                   <i class="fa fa-angle-double-right"></i>
                   <span>Permission List</span>
                 </a>
@@ -49,13 +49,13 @@
             </a>
             <ul class="treeview-menu">
               <li>
-                <a href="">
+                <a href="{{route('role.add')}}">
                   <i class="fa fa-angle-double-right"></i>
                   <span>Role Add</span>
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="{{route('role.list')}}">
                   <i class="fa fa-angle-double-right"></i>
                   <span>Role List</span>
                 </a>
@@ -63,20 +63,20 @@
             </ul>
           </li>
 
-         <li class="treeview">
+          <li class="treeview">
             <a href=""> 
               <i class="fa fa-angle-double-right"></i> <span> Users </span> 
               <i class="fa fa-angle-right pull-right"></i>
             </a>
             <ul class="treeview-menu">
               <li>
-                <a href="">
+                <a href="{{route('user.add')}}">
                   <i class="fa fa-angle-double-right"></i>
                   <span>User Add</span>
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="{{route('user.list')}}">
                   <i class="fa fa-angle-double-right"></i>
                   <span>User List</span>
                 </a>

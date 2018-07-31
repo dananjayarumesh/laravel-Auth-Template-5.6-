@@ -17,7 +17,12 @@
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
             <li>
-              <a href="#">Log Out</a>
+              <a href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+
             </li>
           </ul>
         </div>
