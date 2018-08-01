@@ -1,4 +1,8 @@
 
+<?php 
+$currentRoute = Request::route()->getName();
+//dd($currentRoute);
+?>
 <aside class="main-sidebar">
 
   <section class="sidebar">
@@ -6,28 +10,30 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
 
-      <li class="active">
-        <a href="#">
+      <li class="{{($currentRoute=='dashboard')?'active':''}}">
+        <a href="{{route('dashboard')}}">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
 
       <li class="treeview">
+
         <a href="#">
           <i class="fa fa-users"></i> <span>User Management</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">
+
+        <ul class="treeview-menu active">
 
           <li class="treeview">
             <a href=""> 
               <i class="fa fa-angle-double-right"></i> <span> Permissions </span> 
               <i class="fa fa-angle-right pull-right"></i>
             </a>
-            <ul class="treeview-menu">
-              <li>
+            <ul class="treeview-menu act">
+              <li class="active">
                 <a href="{{route('permission.add')}}">
                   <i class="fa fa-angle-double-right"></i>
                   <span>Permission Add</span>

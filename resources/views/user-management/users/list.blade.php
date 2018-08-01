@@ -30,19 +30,32 @@
             <tr>
               <th style="width: 10px">#</th>
               <th>Name</th>
+              <th>Role</th>
+              <th></th>
             </thead>
             <tbody>
 
+              @foreach($users as $key => $user)
+
               <tr>
-                <td>1.</td>
-                <td>Update software</td>
+                <td>{{$key+1}}</td>
+                <td>{{$user->name}}</td>
+                <td>
+                  @foreach($user->roles as $role)
+                  {{$role->name}}
+                  @endforeach
+                  
+                </td>
+                <td></td>
               </tr>
-              
+
+              @endforeach      
+
             </tbody>
           </table>
         </div>
         <!-- /.box-body -->
-        <div class="box-footer clearfix">
+{{--         <div class="box-footer clearfix">
           <ul class="pagination pagination-sm no-margin pull-right">
             <li><a href="#">«</a></li>
             <li><a href="#">1</a></li>
@@ -50,7 +63,7 @@
             <li><a href="#">3</a></li>
             <li><a href="#">»</a></li>
           </ul>
-        </div>
+        </div> --}}
       </div>
 
     </section>

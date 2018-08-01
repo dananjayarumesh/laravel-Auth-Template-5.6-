@@ -5,29 +5,50 @@ namespace App\Http\Controllers\UserManagement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\user;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class UserController extends Controller
 {
 
     public function list()
     {
-        return view('user-management.users.list');
+        $users = User::with('roles')->get();
+
+        return view('user-management.users.list')->with(['users'=>$users]);
     }
 
     public function add()
     {
-        return view('user-management.users.add');
+
+        $roles = Role::all();
+
+        return view('user-management.users.add')->with(['roles'=>$roles]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
-    }
+       $this->validate($request, [
+           'name' => 'required|string|max:255',
+           'email' => 'required|string|email|max:255|unique:users',
+           'password' => 'required|string|min:6|confirmed',
+           'role' => 'required|string|max:20'
+       ]);
+
+       $user = User::create([
+        'name'=>$request->name,
+        'email'=>$request->email,
+        'password'=>$request->password,
+    ]);
+
+       $user->assignRole($request->role);
+
+       return redirect()->route('user.add');
+
+
+   }
 
     /**
      * Display the specified resource.

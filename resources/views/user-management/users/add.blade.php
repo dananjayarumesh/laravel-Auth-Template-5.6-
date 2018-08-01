@@ -24,37 +24,74 @@
       <!-- /.box-header -->
       <div class="box-body">
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Name</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-        </div>
+        <form method="post" action="{{route('user.add')}}">
+          @csrf
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Role</label>
-         <select class="form-control">
-           <option></option>
-         </select>
-        </div>
+          <div class="form-group {{($errors->has('name'))?'has-error':''}}">
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-        </div>
+            <label>Name</label>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Password</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-        </div>
+            <input type="text" name="name" class="form-control" placeholder="Name">
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Confirm Password</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-        </div>
+            @if($errors->has('name'))
+            <label id="label-error" class="error help-block" for="label">{{$errors->first('name')}}</label>
+            @endif
 
-        <div class="form-group">
-          <button class="btn btn-primary">Add</button>
-        </div>
+          </div>
 
+          <div class="form-group {{($errors->has('name'))?'has-error':''}}">
+            <label>Role</label>
+            <select name="role" class="form-control">
+
+              @foreach($roles as $key => $role)
+              <option value="{{$role->name}}">{{$role->name}}</option>
+              @endforeach
+
+            </select>
+
+            @if($errors->has('role'))
+            <label id="label-error" class="error help-block" for="label">{{$errors->first('role')}}</label>
+            @endif
+
+          </div>
+
+          <div class="form-group {{($errors->has('email'))?'has-error':''}}">
+            <label>Email</label>
+
+            <input type="email" name="email" class="form-control" placeholder="Email">
+
+            @if($errors->has('email'))
+            <label id="label-error" class="error help-block" for="label">{{$errors->first('email')}}</label>
+            @endif
+
+          </div>
+
+          <div class="form-group {{($errors->has('password'))?'has-error':''}}">
+            <label>Password</label>
+
+            <input type="password" name="password" class="form-control" placeholder="Password">
+
+            @if($errors->has('password'))
+            <label id="label-error" class="error help-block" for="label">{{$errors->first('password')}}</label>
+            @endif
+
+          </div>
+
+          <div class="form-group {{($errors->has('password_confirmation'))?'has-error':''}}">
+            <label>Confirm Password</label>
+
+            <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password">
+
+            @if($errors->has('password_confirmation'))
+            <label id="label-error" class="error help-block" for="label">{{$errors->first('password_confirmation')}}</label>
+            @endif
+
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary">Add</button>
+          </div>
+        </form>
       </div>
     </div>
   </section>

@@ -23,13 +23,26 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Name</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary">Add</button>
-        </div>
+
+        <form method="post" action="{{route('role.store')}}">
+          @csrf
+
+
+          <div class="form-group {{($errors->has('name'))?'has-error':''}}">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Name" value="{{old('name')}}">
+
+            @if($errors->has('name'))
+            <label id="label-error" class="error help-block" for="label">{{$errors->first('name')}}</label>
+            @endif
+
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Add</button>
+          </div>
+
+        </form>
+
       </div>
     </div>
   </section>

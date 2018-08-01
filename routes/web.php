@@ -32,16 +32,22 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::group(['prefix' => 'permission'], function () {
 		Route::get('/list', 'UserManagement\PermissionController@list')->name('permission.list');
 		Route::get('/add', 'UserManagement\PermissionController@add')->name('permission.add');
+
+		Route::post('/add', 'UserManagement\@store')->name('permission.store');
 	});
 
 	Route::group(['prefix' => 'role'], function () {
 		Route::get('/list', 'UserManagement\RoleController@list')->name('role.list');
 		Route::get('/add', 'UserManagement\RoleController@add')->name('role.add');
+
+		Route::post('/add', 'UserManagement\RoleController@store')->name('role.store');
 	});
 
 	Route::group(['prefix' => 'user'], function () {
 		Route::get('/list', 'UserManagement\UserController@list')->name('user.list');
 		Route::get('/add', 'UserManagement\UserController@add')->name('user.add');
+
+		Route::post('/add', 'UserManagement\UserController@store')->name('user.add');
 	});
 
 });

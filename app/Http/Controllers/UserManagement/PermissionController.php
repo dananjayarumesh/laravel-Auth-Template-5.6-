@@ -5,12 +5,18 @@ namespace App\Http\Controllers\UserManagement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+
 class PermissionController extends Controller
 {
 
     public function list()
     {
-        return view('user-management.permissions.list');
+        $permissions = Permission::all();
+
+        return view('user-management.permissions.list')->with(['permissions'=>$permissions]);
     }
 
     public function add()
@@ -18,15 +24,15 @@ class PermissionController extends Controller
         return view('user-management.permissions.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:20|unique:permissions,name'
+        ]);
+
+        $permission = Permission::create(['name' => $request->name]);
+
+        return redirect()->route('permission.add');
     }
 
     /**
