@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserManagement;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 use App\user;
 use Spatie\Permission\Models\Role;
@@ -30,68 +31,47 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-       $this->validate($request, [
-           'name' => 'required|string|max:255',
-           'email' => 'required|string|email|max:255|unique:users',
-           'password' => 'required|string|min:6|confirmed',
-           'role' => 'required|string|max:20'
-       ]);
 
-       $user = User::create([
-        'name'=>$request->name,
-        'email'=>$request->email,
-        'password'=>$request->password,
-    ]);
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|string|max:20'
+        ]);
 
-       $user->assignRole($request->role);
+        $user = User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password),
+        ]);
 
-       return redirect()->route('user.add');
+        $user->assignRole($request->role);
 
+        return redirect()->route('user.add');
 
-   }
+    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $user = User::with('roles')->where('id',$id)->first();
+// dd($user->roles);
+        $roles = Role::all();
+
+        return view('user-management.users.edit')->with(['user'=>$user,'roles'=>$roles]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 }

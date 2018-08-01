@@ -33,25 +33,54 @@
             <tr>
               <th style="width: 10px">#</th>
               <th>Name</th>
+              <th width="150px"></th>
             </thead>
-            <tbody>
+            <tbody> 
 
               @foreach($roles as $key => $role)
               <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$role->name}}</td>
-              </tr>
-              @endforeach
+                <td>
+                 <a href="{{route('role.edit',['id'=>$role->id])}}" type="button" class="btn btn-warning btn-xs">Edit</a>
+                 <button type="button" class="btn btn-danger btn-xs" onclick="deleteRole({{$role->id}})">Delete</button>
 
-            </tbody>
-          </table>
-        </div>
-        <!-- /.box-body -->
+                 <form id="delete-role-{{$role->id}}" action="{{ route('role.delete',['id' => $role->id]) }}" method="POST">
+                   @csrf
+                   <input type="hidden" name="_method" value="DELETE">
+                 </form>
 
-      </div>
+               </td>
+             </tr>
+             @endforeach
 
-    </section>
+           </tbody>
+         </table>
+       </div>
+       <!-- /.box-body -->
 
-  </div>
+     </div>
 
-  @endsection
+   </section>
+
+ </div>
+
+ @endsection
+
+ @section('scripts')
+
+ <script type="text/javascript">
+
+  function deleteRole(id){
+
+    var conf = confirm("Are You Sure!");
+
+    if (conf == true) {
+      $('#delete-role-'+id).submit();
+    }
+
+  }
+
+</script>
+
+@endsection

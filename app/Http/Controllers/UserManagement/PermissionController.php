@@ -35,48 +35,29 @@ class PermissionController extends Controller
         return redirect()->route('permission.add');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $permission = Permission::find($id);
+        return view('user-management.permissions.edit')->with('permission',$permission);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:20|unique:permissions,name'
+        ]);
+
+        Permission::where('id',$id)->update([
+            'name'=> $request->name
+        ]);
+
+        return redirect()->route('permission.list');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $permission = Permission::where('id',$id)->delete();
+        return redirect()->route('permission.list');
     }
 }

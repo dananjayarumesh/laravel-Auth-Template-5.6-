@@ -26,11 +26,14 @@
       <!-- /.box-header -->
       <div class="box-body">
         <table class="table table-bordered table-striped">
+
           <thead>
             <tr>
               <th style="width: 10px">#</th>
               <th>Name</th>
+              <th width="150px"></th>
             </thead>
+
             <tbody>
 
               @foreach($permissions as $key => $permission)
@@ -38,18 +41,49 @@
               <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$permission->name}}</td>
-              </tr>
+                <td>
+                  <a href="{{route('permission.edit',['id'=>$permission->id])}}" type="button" class="btn btn-warning btn-xs">Edit</a>
+                  <button type="button" class="btn btn-danger btn-xs" onclick="deletePermission({{$permission->id}})">Delete</button>
 
-              @endforeach
+                  <form id="delete-permission-{{$permission->id}}" action="{{ route('permission.delete',['id' => $permission->id]) }}" method="POST">
+                   @csrf
+                   <input type="hidden" name="_method" value="DELETE">
+                 </form>
 
-            </tbody>
-          </table>
-        </div>
-        <!-- /.box-body -->
-      </div>
+               </td>
+             </tr>
 
-    </section>
+             @endforeach
 
-  </div>
+           </tbody>
+         </table>
+       </div>
+       <!-- /.box-body -->
+     </div>
 
-  @endsection
+   </section>
+
+ </div>
+
+ @endsection
+
+ @section('scripts')
+
+ <script type="text/javascript">
+
+
+
+
+    function deletePermission(id){
+
+      var conf = confirm("Are You Sure!");
+
+      if (conf == true) {
+        $('#delete-permission-'+id).submit();
+      }
+
+    }
+
+</script>
+
+@endsection

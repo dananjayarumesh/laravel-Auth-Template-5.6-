@@ -90,7 +90,8 @@
     <script src="{{asset('AdminLTE-2.4.5/bower_components/fastclick/lib/fastclick.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('AdminLTE-2.4.5/dist/js/adminlte.min.js')}}"></script>
-
+    
+    @yield('scripts')
 
   </body>
   </html>

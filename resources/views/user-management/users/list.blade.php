@@ -31,7 +31,7 @@
               <th style="width: 10px">#</th>
               <th>Name</th>
               <th>Role</th>
-              <th></th>
+              <th width="150px"></th>
             </thead>
             <tbody>
 
@@ -44,17 +44,25 @@
                   @foreach($user->roles as $role)
                   {{$role->name}}
                   @endforeach
-                  
                 </td>
-                <td></td>
-              </tr>
+                <td>
+                  <a href="{{route('user.edit',['id'=>$user->id])}}" type="button" class="btn btn-warning btn-xs">Edit</a>
+                  <button type="button" class="btn btn-danger btn-xs" onclick="deleteUser({{$user->id}})">Delete</button>
 
-              @endforeach      
+                  <form id="delete-user-{{$user->id}}" action="{{ route('user.delete',['id' => $user->id]) }}" method="POST">
+                   @csrf
+                   <input type="hidden" name="_method" value="DELETE">
+                 </form>
 
-            </tbody>
-          </table>
-        </div>
-        <!-- /.box-body -->
+               </td>
+             </tr>
+
+             @endforeach      
+
+           </tbody>
+         </table>
+       </div>
+       <!-- /.box-body -->
 {{--         <div class="box-footer clearfix">
           <ul class="pagination pagination-sm no-margin pull-right">
             <li><a href="#">«</a></li>
@@ -69,5 +77,23 @@
     </section>
 
   </div>
+
+  @endsection
+
+  @section('scripts')
+
+  <script type="text/javascript">
+
+    function deleteUser(id){
+
+      var conf = confirm("Are You Sure!");
+
+      if (conf == true) {
+        $('#delete-user-'+id).submit();
+      }
+
+    }
+
+  </script>
 
   @endsection
